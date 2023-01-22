@@ -1,0 +1,77 @@
+Redux is a tool that helps organize the different parts of a JavaScript program 
+that handle information, or "state." It makes sure that the state can only change 
+in certain ways, and that it is easy to understand what the state is at any point 
+in time. This is like having a set of rules for moving pieces on a game board, where 
+each move is a change in the state of the game, and the game board shows the current 
+state of the game. Because the rules are strict and clear, it's easy to know what the 
+ame board should look like after each move.
+
+
+
+The core principles of Redux are:
+
+Single source of truth: The state of the entire application is stored in a single, immutable data structure called the "store." This makes it easy to understand the current state of the application and trace how it changes over time.
+
+State is read-only: The state can only be changed by dispatching actions. An action is a plain JavaScript object that describes a state change. For example, an action might be used to add an item to a shopping cart.
+
+Changes are made with pure functions: Reducers are used to update the state based on actions. A reducer is a pure function that takes the current state and an action as input and returns the next state. Because reducers are pure functions, they are deterministic, meaning that they will always produce the same output for the same input. This predictability makes it easy to understand and debug the state of a Redux application.
+
+The store has a few specific methods to update state. You can use the store's dispatch method to dispatch an action, and the store's subscribe method to register a listener that will be called whenever the state changes.
+
+Middleware is a way to handle side-effects and async logic. You can use middleware to handle things like making an HTTP request or logging every action that was dispatched.
+
+By following these principles, Redux helps you write applications that are easy to understand, test, and debug. It also makes it easy to manage the state of your application, which can become complex in large-scale applications.
+
+
+
+What exactly is pure function : 
+
+
+It does not produce any side effects. This means that it does not modify any variables outside of its own scope, and it does not access any external data. It only calculates a new value based on its inputs (also known as parameters) and returns it.
+
+It always returns the same output for the same input. This is known as "determinism" or "referential transparency." It means that you can always predict the output of a pure function based on its inputs, and you don't have to worry about hidden dependencies or external factors that could affect its behavior.
+
+
+What exactly is non pure function : 
+
+In general, any function that modifies external state, depend on external state or produce different outputs with the same inputs are non-pure.
+
+
+function fetchData(url) {
+  return fetch(url).then(response => response.json());
+}
+
+Functions that make HTTP requests or access a database. These functions would not be pure because they depend on external resources and can produce different outputs even with the same input.
+
+
+Redux Uses IMMER JS under the hood 
+
+so while modifying the state we don't have to make a new copy of the data to change a 
+particular piece of information in the data . 
+
+
+let state = {
+  name: 'John',
+  age: 30,
+  address: {
+    city: 'New York',
+    street: 'Broadway'
+  }
+}
+let newState = {
+  ...state,
+  name: 'Mike',
+  address: {
+    ...state.address,
+    city: 'LA',
+  }
+
+
+
+but with the help of immer we don't have to make the new copy of the state 
+
+
+produce(state, draft => {
+  draft.name = 'Mike';
+  draft.address.city = 'LA';
+});
