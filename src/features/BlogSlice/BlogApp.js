@@ -30,7 +30,7 @@ const BlogApp = () => {
   return (
     <Box bg="gray" w="auto" h="auto" p={4} color="white" className="box">
       <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <form>
+        <form style={{ position: "fixed", left: "13rem" }}>
           <div
             style={{
               display: "flex",

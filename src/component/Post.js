@@ -12,7 +12,7 @@ const Post = () => {
   const dispatch = useDispatch();
 
   return (
-    <div>
+    <div style={{ marginLeft: "40rem" }}>
       {blog.map((e) => {
         return (
           <Card className="card" variant="elevated">
