@@ -12,16 +12,16 @@ const BlogApp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      addBlog({
-        author,
-        title,
-        body,
-        id: new Date().getTime(),
-        thumpsUp: 0,
-        thumpsDown: 0,
-      })
-    );
+    if (author && title && body) {
+      dispatch(
+        addBlog({
+          author,
+          title,
+          body,
+        })
+      );
+    }
+
     setAuthor("");
     setBody("");
     setTitle("");
@@ -29,8 +29,11 @@ const BlogApp = () => {
 
   return (
     <Box bg="gray" w="auto" h="auto" p={4} color="white" className="box">
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <form style={{ position: "fixed", left: "13rem" }}>
+      <div
+        style={{ display: "flex", justifyContent: "space-around" }}
+        className="main-div"
+      >
+        <form className="form" style={{ position: "fixed", left: "8%" }}>
           <div
             style={{
               display: "flex",
@@ -48,7 +51,7 @@ const BlogApp = () => {
                 marginLeft: "1rem",
                 border: "none",
                 outline: "none",
-                width: "20rem",
+                width: "70%",
                 borderRadius: "1rem",
                 paddingTop: "0.4rem",
                 paddingLeft: "0.3rem",
@@ -68,7 +71,7 @@ const BlogApp = () => {
                   color: "black",
                   border: "none",
                   outline: "none",
-                  width: "20rem",
+                  width: "70%",
                   borderRadius: "1rem",
                   paddingTop: "0.4rem",
                   marginLeft: "2rem",
@@ -88,11 +91,12 @@ const BlogApp = () => {
                   BODY :{" "}
                 </h3>
                 <textarea
+                  className="text-area"
                   value={body}
                   onChange={(e) => {
                     setBody(e.target.value);
                   }}
-                  cols="36"
+                  cols="32"
                   rows="5"
                   style={{
                     // marginLeft: "3rem",
@@ -110,6 +114,7 @@ const BlogApp = () => {
             </div>
           </div>
           <Button
+            className="btn"
             onClick={(e) => {
               handleSubmit(e);
             }}
@@ -118,8 +123,9 @@ const BlogApp = () => {
             sx={{
               ml: "5.3rem",
               mt: "6rem",
-              paddingLeft: "8rem ",
-              paddingRight: "8rem",
+              width: "70%",
+              //   paddingLeft: "40% ",
+              //   paddingRight: "40%",
             }}
           >
             SUBMIT

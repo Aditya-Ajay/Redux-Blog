@@ -6,12 +6,23 @@ export const BlogSlice = createSlice({
   name: "blogs",
   initialState: initialValue,
   reducers: {
-    addBlog: (state, action) => {
-      const { author, title, body } = action.payload;
-      if (author && title && body) {
-        return [...state, action.payload];
-      }
+    addBlog: {
+      reducer: (state, action) => {
+        state.push(action.payload); // immer js comes handy here as we don't have to prepare a new state for modifying the state ,
+        // instead immmer js automatically create a copy this only happens inside createSlice
+      },
+      prepare: (value) => {
+        return {
+          payload: {
+            ...value,
+            id: new Date().getTime(),
+            thumpsUp: 0,
+            thumpsDown: 0,
+          },
+        };
+      },
     },
+
     handleIncrease: (state, action) => {
       //   state.thumpsUp += 1;
       const blogIndex = state.findIndex((blog) => blog.id === action.payload);
@@ -27,6 +38,8 @@ export const BlogSlice = createSlice({
     },
   },
 });
+
+export const selectedBlogs = (state) => state.blog;
 
 export const { addBlog, handleIncrease, handleDecrease } = BlogSlice.actions;
 
